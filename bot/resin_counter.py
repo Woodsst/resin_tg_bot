@@ -1,7 +1,7 @@
 import time
 
 
-class Resin:
+class User:
 
     def __init__(self, chat_id):
         self.id = chat_id
