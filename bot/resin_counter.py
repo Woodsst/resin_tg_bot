@@ -1,4 +1,5 @@
 import time
+from log import logger
 
 
 class User:
@@ -15,6 +16,7 @@ class User:
             for i in self.checkpoints:
                 if resin < i:
                     resin += 1
+                    logger.info(f"{self.id} resin update {resin}")
                     time.sleep(self.counter_update_time_sec)
                     break
                 if resin == i:
@@ -22,3 +24,5 @@ class User:
                 if resin == self.full:
                     yield self.full
                     resin = 0
+                    self.status = False
+                    break

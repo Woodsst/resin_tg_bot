@@ -22,9 +22,9 @@ def counter_thread(message: Message, resin: User):
 
 @bot.message_handler()
 def send_welcome(message: Message):
+    logger.info(f"user send request - {message.text}")
     user = User(message.chat.id)
     counter_in_work: User = users.get(user.id)
-    logger.info(f"users count = {len(users)}")
     if counter_in_work is not None:
         if message.text == "stop":
             counter_in_work.status = False
@@ -32,5 +32,6 @@ def send_welcome(message: Message):
             return
         counter_in_work.status = False
     users[user.id] = user
+    logger.info(f"users count = {len(users)}")
     thread = Thread(target=counter_thread, args=(message, user))
     thread.run()
