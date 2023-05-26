@@ -15,6 +15,7 @@ def counter_thread(message: Message, resin: User):
     try:
         for resin in resin.resin_counter(int(message.text)):
             bot.send_message(chat_id=message.chat.id, text=resin)
+            logger.info(f"send count data to {message.from_user.username}")
     except TypeError as e:
         logger.warning(e)
         return
@@ -22,8 +23,8 @@ def counter_thread(message: Message, resin: User):
 
 @bot.message_handler()
 def send_welcome(message: Message):
-    logger.info(f"user send request - {message.text}")
-    user = User(message.chat.id)
+    logger.info(f"user {message.from_user.username} send request - {message.text}")
+    user = User(message.chat.id, message.from_user.username)
     counter_in_work: User = users.get(user.id)
     if counter_in_work is not None:
         if message.text == "stop":
