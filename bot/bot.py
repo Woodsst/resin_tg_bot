@@ -4,15 +4,21 @@ import telebot
 from telebot import types
 from telebot.types import Message
 
+from bot.resin.resin_counter import User
+from log import logger
+from users import users
 
-bot = telebot.TeleBot(getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA"))
-
-users = {}
+bot = telebot.TeleBot(getenv("TOKEN"))
 
 
 @bot.message_handler(commands=['start'])
 def start(message: Message):
     """Основное меню."""
+    user = User(message.chat.id, message.from_user.username)
+    user_in_work: User = users.get(user.id)
+    if user_in_work is None:
+        users[user.id] = user
+        logger.info(f"add user {user.id, user.name}\nusers count = {len(users)}")
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn_resin = types.KeyboardButton("Смола")
     btn_treasure_resident = types.KeyboardButton("Сокровища обители")
