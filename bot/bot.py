@@ -1,38 +1,23 @@
-from threading import Thread
+from os import getenv
 
 import telebot
+from telebot import types
 from telebot.types import Message
-from os import getenv
-from bot.resin_counter import User
-from log import logger
 
-bot = telebot.TeleBot(getenv("TOKEN"))
+
+bot = telebot.TeleBot(getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA"))
 
 users = {}
 
 
-def counter_thread(message: Message, resin: User):
-    try:
-        for resin in resin.resin_counter(int(message.text)):
-            bot.send_message(chat_id=message.chat.id, text=resin)
-            logger.info(f"send count data to {message.from_user.username}")
-    except TypeError as e:
-        logger.warning(e)
-        return
-
-
-@bot.message_handler()
-def send_welcome(message: Message):
-    logger.info(f"user {message.from_user.username} send request - {message.text}")
-    user = User(message.chat.id, message.from_user.username)
-    counter_in_work: User = users.get(user.id)
-    if counter_in_work is not None:
-        if message.text == "stop":
-            counter_in_work.status = False
-            logger.info(f"user {user.id} stop count work")
-            return
-        counter_in_work.status = False
-    users[user.id] = user
-    logger.info(f"users count = {len(users)}")
-    thread = Thread(target=counter_thread, args=(message, user))
-    thread.run()
+@bot.message_handler(commands=['start'])
+def start(message: Message):
+    """Основное меню."""
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn_resin = types.KeyboardButton("Смола")
+    btn_treasure_resident = types.KeyboardButton("Сокровища обители")
+    btn_parameter_converter = types.KeyboardButton("Параметрический преобразователь")
+    markup.add(btn_resin, btn_parameter_converter, btn_treasure_resident)
+    bot.send_message(message.chat.id,
+                     text="Выберите необходимые данные".format(
+                         message.from_user), reply_markup=markup)
