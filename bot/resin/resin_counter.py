@@ -6,7 +6,6 @@ from log import logger
 
 
 class User:
-
     def __init__(self, chat_id: int, username: str):
         self.name = username
         self.id = chat_id

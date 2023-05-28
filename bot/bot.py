@@ -1,7 +1,6 @@
 from os import getenv
 
 import telebot
-from telebot import types
 from telebot.types import Message
 
 from bot.menu import menu
@@ -9,7 +8,9 @@ from bot.resin.resin_counter import User
 from log import logger
 from users import users
 
-bot = telebot.TeleBot(getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA"))
+bot = telebot.TeleBot(
+    getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA")
+)
 
 
 @bot.message_handler(commands=["menu", "start"])
@@ -19,8 +20,13 @@ def start(message: Message):
     user_in_work: User = users.get(user.id)
     if user_in_work is None:
         users[user.id] = user
-        logger.info(f"add user {user.id, user.name}\nusers count = {len(users)}")
+        logger.info(
+            f"add user {user.id, user.name}\nusers count = {len(users)}"
+        )
     menu(message, bot)
     if message.text == "/start":
-        bot.send_message(message.chat.id, "Привет, это бот помошник для Геншина, "
-                                          "тут ты сможешь задавать и отслеживать состояния своих сокровищ")
+        bot.send_message(
+            message.chat.id,
+            "Привет, это бот помошник для Геншина, "
+            "тут ты сможешь задавать и отслеживать состояния своих сокровищ",
+        )
