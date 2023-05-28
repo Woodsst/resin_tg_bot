@@ -13,7 +13,7 @@ bot = telebot.TeleBot(
 )
 
 
-@bot.message_handler(commands=["menu", "start"])
+@bot.message_handler(commands=["Меню", "start"])
 def start(message: Message):
     """Основное меню."""
     user = User(message.chat.id, message.from_user.username)

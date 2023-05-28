@@ -42,3 +42,7 @@ class User:
     def resin_thread_start(self, resin: int, bot, message):
         thread = Thread(target=self.resin_worker, args=(resin, bot, message))
         thread.run()
+
+    def update_resin_counter_status(self):
+        if self.resin_counter_thread is True:
+            self.resin_counter_thread = False
