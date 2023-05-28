@@ -5,8 +5,7 @@ from telebot import types
 from telebot.types import Message
 
 from bot.bot import bot
-from users import users
-from bot.resin.resin_counter import User
+from users import users, User
 from log import logger
 
 
