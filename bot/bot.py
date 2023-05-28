@@ -1,38 +1,32 @@
-from threading import Thread
+from os import getenv
 
 import telebot
 from telebot.types import Message
-from os import getenv
-from bot.resin_counter import User
+
+from bot.menu import menu
+from bot.resin.resin_counter import User
 from log import logger
+from users import users
 
-bot = telebot.TeleBot(getenv("TOKEN"))
-
-users = {}
-
-
-def counter_thread(message: Message, resin: User):
-    try:
-        for resin in resin.resin_counter(int(message.text)):
-            bot.send_message(chat_id=message.chat.id, text=resin)
-            logger.info(f"send count data to {message.from_user.username}")
-    except TypeError as e:
-        logger.warning(e)
-        return
+bot = telebot.TeleBot(
+    getenv("TOKEN")
+)
 
 
-@bot.message_handler()
-def send_welcome(message: Message):
-    logger.info(f"user {message.from_user.username} send request - {message.text}")
+@bot.message_handler(commands=["Меню", "start"])
+def start(message: Message):
+    """Основное меню."""
     user = User(message.chat.id, message.from_user.username)
-    counter_in_work: User = users.get(user.id)
-    if counter_in_work is not None:
-        if message.text == "stop":
-            counter_in_work.status = False
-            logger.info(f"user {user.id} stop count work")
-            return
-        counter_in_work.status = False
-    users[user.id] = user
-    logger.info(f"users count = {len(users)}")
-    thread = Thread(target=counter_thread, args=(message, user))
-    thread.run()
+    user_in_work: User = users.get(user.id)
+    if user_in_work is None:
+        users[user.id] = user
+        logger.info(
+            f"add user {user.id, user.name}\nusers count = {len(users)}"
+        )
+    menu(message, bot)
+    if message.text == "/start":
+        bot.send_message(
+            message.chat.id,
+            "Привет, это бот помошник для Геншина, "
+            "тут ты сможешь задавать и отслеживать состояния своих сокровищ",
+        )
