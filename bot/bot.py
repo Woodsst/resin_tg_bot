@@ -9,7 +9,7 @@ from log import logger
 from users import users
 
 bot = telebot.TeleBot(
-    getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA")
+    getenv("TOKEN")
 )
 
 

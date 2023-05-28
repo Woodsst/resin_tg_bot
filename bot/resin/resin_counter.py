@@ -36,7 +36,7 @@ class User:
         bot.send_message(message.chat.id, text=f"Отсчет начался с {resin}")
         self.resin_counter_thread = True
         for resin in self.resin_counter(resin):
-            bot.send_message(chat_id=message.chat.id, text=resin)
+            bot.send_message(chat_id=message.chat.id, text=f"Смолы - {resin}")
             logger.info(f"send count data to {message.from_user.username}")
 
     def resin_thread_start(self, resin: int, bot, message):
