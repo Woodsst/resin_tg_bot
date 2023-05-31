@@ -3,6 +3,7 @@ from threading import Thread
 
 from telebot.types import Message
 
+from bot.resident_treasure.treasure_counter import TreasureCounter
 from log import logger
 
 users = {}
@@ -17,6 +18,7 @@ class User:
         self.full = self.checkpoints[-1]
         self.counter_update_time_sec = 0.1
         self.resin = None
+        self.treasure_counter = TreasureCounter()
 
     def resin_counter(self, resin: int):
         while self.resin_counter_thread is True:
