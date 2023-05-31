@@ -16,7 +16,7 @@ class User:
         self.resin_counter_thread = True
         self.checkpoints = [40, 80, 120, 140, 160]
         self.full = self.checkpoints[-1]
-        self.counter_update_time_sec = 0.1
+        self.counter_update_time_sec = 480
         self.resin = None
         self.treasure_counter = TreasureCounter()
 
@@ -45,7 +45,9 @@ class User:
             logger.info(f"send count data to {message.from_user.username}")
 
     def resin_thread_start(self, resin: int, bot, message):
-        thread = Thread(target=self.resin_worker, args=(resin, bot, message))
+        thread = Thread(
+            target=self.resin_worker, args=(resin, bot, message), daemon=True
+        )
         thread.run()
 
     def update_resin_counter_status(self):
