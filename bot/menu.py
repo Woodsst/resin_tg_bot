@@ -8,7 +8,6 @@ class Menu(enum.Enum):
     menu = "/Меню"
 
 
-def menu(message: Message, bot):
 async def menu(message: Message, bot):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn_resin = types.KeyboardButton("Смола")

@@ -16,7 +16,7 @@ from users import users, User
 
 
 bot = AsyncTeleBot(
-    getenv("TOKEN")
+    getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA")
 )
 
 
@@ -40,18 +40,18 @@ async def start(message: Message):
 
 
 @bot.message_handler()
-def work(message: Message):
+async def work(message: Message):
     logger.info(
         f"user {message.from_user.username} send request - {message.text}"
     )
     user: Optional[User] = users.get(message.chat.id)
 
     if message.text == Menu.menu.value:
-        menu(message, bot)
+        await menu(message, bot)
 
     if message.text == ResinMenu.buttons.value:
-        resin_buttons(message, bot)
-    resin_buttons_work(message, user, bot)
+        await resin_buttons(message, bot)
+    await resin_buttons_work(message, bot=bot, user=user)
 
     if message.text == TreasureMenu.buttons.value:
         treasure_buttons(message, bot)
