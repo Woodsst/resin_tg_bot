@@ -54,5 +54,5 @@ async def work(message: Message):
     await resin_buttons_work(message, bot=bot, user=user)
 
     if message.text == TreasureMenu.buttons.value:
-        treasure_buttons(message, bot)
-    treasure_buttons_work(message, user, bot)
+        await treasure_buttons(message, bot)
+    await treasure_buttons_work(message, user, bot)
