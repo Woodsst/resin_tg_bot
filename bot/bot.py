@@ -5,6 +5,7 @@ from telebot.async_telebot import AsyncTeleBot
 from telebot.types import Message
 
 from bot.menu import menu, Menu
+from bot.parametric_converter.converter_handler import ConverterMenu, converter_buttons, converter_buttons_work
 from bot.resident_treasure.treasure_handler import (
     treasure_buttons,
     TreasureMenu,
@@ -56,3 +57,7 @@ async def work(message: Message):
     if message.text == TreasureMenu.buttons.value:
         await treasure_buttons(message, bot)
     await treasure_buttons_work(message, user, bot)
+
+    if message.text == ConverterMenu.buttons.value:
+        await converter_buttons(message, bot)
+    await converter_buttons_work(message, bot, user)

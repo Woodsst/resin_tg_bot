@@ -2,6 +2,7 @@ from asyncio import sleep
 
 from telebot.types import Message
 
+from bot.parametric_converter.converter_counter import ConverterCounter
 from bot.resident_treasure.treasure_counter import TreasureCounter
 from log import logger
 
@@ -18,6 +19,7 @@ class User:
         self.counter_update_time_sec = 480
         self.resin = None
         self.treasure_counter = TreasureCounter()
+        self.converter_counter = ConverterCounter()
 
     async def resin_counter(self, resin: int):
         while True:
