@@ -8,7 +8,7 @@ class ConverterCounter:
     WEAK = 604800
 
     def __init__(self):
-        self.converter_check_time_sec = 1
+        self.converter_check_time_sec = 3600
         self.converter_ready = 0
         self.coro = None
         self.weak_sec = self.WEAK
