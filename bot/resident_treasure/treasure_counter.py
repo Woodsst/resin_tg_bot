@@ -7,7 +7,7 @@ class TreasureCounter:
     def __init__(self):
         self.status = False
         self.full = 2400
-        self.update_time_sec = 1
+        self.update_time_sec = 6000
         self.treasure = 0
         self.treasure_update = 30
         self.coro = None

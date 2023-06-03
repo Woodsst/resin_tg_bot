@@ -8,8 +8,8 @@ from users import User
 
 
 class ConverterMenu(enum.Enum):
-    update = "Обновить"
-    start = "Запустить"
+    update = "Обновить таймер"
+    start = "Запустить таймер"
     value_ = "Оставшееся время"
     buttons = "Параметрический преобразователь"
 
@@ -28,10 +28,10 @@ async def converter_buttons(message: Message, bot):
 
 async def converter_buttons_work(message: Message, bot, user: User):
     if message.text == ConverterMenu.start.value:
-        pass
+        await user.converter_counter.run(bot, message)
 
     if message.text == ConverterMenu.value_.value:
-        pass
+        await user.converter_counter.timer_progress(bot, message)
 
     if message.text == ConverterMenu.update.value:
-        pass
+        await user.converter_counter.update(bot, message)
