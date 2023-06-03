@@ -1,5 +1,11 @@
+import enum
+
 from telebot import types
 from telebot.types import Message
+
+
+class Menu(enum.Enum):
+    menu = "/Меню"
 
 
 async def menu(message: Message, bot):

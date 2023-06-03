@@ -1,5 +1,4 @@
 from bot.bot import bot
-from bot.resin import resin_handler
 from log import logger
 from asyncio import run
 

@@ -1,1 +1,53 @@
+from asyncio import sleep
+
+from telebot.types import Message
+
+from bot.parametric_converter.converter_counter import ConverterCounter
+from bot.resident_treasure.treasure_counter import TreasureCounter
+from log import logger
+
 users = {}
+
+
+class User:
+    def __init__(self, chat_id: int, username: str):
+        self.name = username
+        self.id = chat_id
+        self.coro = None
+        self.checkpoints = [40, 80, 120, 140, 160]
+        self.full = self.checkpoints[-1]
+        self.counter_update_time_sec = 480
+        self.resin = None
+        self.treasure_counter = TreasureCounter()
+        self.converter_counter = ConverterCounter()
+
+    async def resin_counter(self, resin: int):
+        while True:
+            self.resin = resin
+            for checkpoint in self.checkpoints:
+                if resin < checkpoint:
+                    resin += 1
+                    logger.info(f"{self.id} resin update {resin}")
+                    await sleep(self.counter_update_time_sec)
+                    break
+                if resin == checkpoint:
+                    yield checkpoint
+                if resin == self.full:
+                    yield self.full
+                    return
+
+    async def resin_worker(self, resin: int, bot, message: Message):
+        if self.coro is not None:
+            self.coro.close()
+        self.coro = self.t(message, bot, resin)
+        await self.coro
+
+    async def t(self, message, bot, resin):
+        await bot.send_message(
+            message.chat.id, text=f"Отсчет начался с {resin}"
+        )
+        async for resin in self.resin_counter(resin):
+            await bot.send_message(
+                chat_id=message.chat.id, text=f"Смолы - {resin}"
+            )
+            logger.info(f"send count data to {message.from_user.username}")
