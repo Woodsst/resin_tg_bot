@@ -31,8 +31,6 @@ async def resin_buttons_work(message: Message, bot, user: User):
         await bot.send_message(
             chat_id=message.chat.id, text="Введите - s <кол-во смолы>"
         )
-    if message.text == ResinMenu.buttons.value:
-        await resin_buttons(message, bot)
     if message.text.split(" ")[0] == ResinMenu.resin_enter_form.value:
         try:
             resin = int(message.text.split(" ")[1])
