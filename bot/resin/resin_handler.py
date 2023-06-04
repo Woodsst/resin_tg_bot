@@ -42,6 +42,6 @@ async def resin_buttons_work(message: Message, bot, user: User):
                 text=incorrect_request_resin_counter,
             )
             return
-        await user.resin_worker(resin, bot, message)
+        await user.resin_counter.resin_worker(resin, bot, message)
     if message.text == ResinMenu.resin.value:
-        await bot.send_message(chat_id=message.chat.id, text=user.resin)
+        await bot.send_message(chat_id=message.chat.id, text=user.resin_counter.resin)
