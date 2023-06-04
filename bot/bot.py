@@ -35,9 +35,7 @@ async def start(message: Message):
     if message.text == "/start":
         await bot.send_message(
             message.chat.id,
-            "Привет, это бот помошник для Геншина, "
-            "тут ты сможешь задавать и отслеживать состояния своих сокровищ",
-        )
+            )
 
 
 @bot.message_handler()

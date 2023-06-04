@@ -18,6 +18,8 @@ async def menu(message: Message, bot):
     markup.add(btn_resin, btn_parameter_converter, btn_treasure_resident)
     await bot.send_message(
         message.chat.id,
-        text="Выберите необходимые данные".format(message.from_user),
+        text="""
+        Привет, это бот помошник для Геншина, тут ты сможешь задавать и отслеживать состояния своих сокровищ
+        """,
         reply_markup=markup,
     )
