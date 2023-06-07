@@ -5,6 +5,7 @@ from telebot.async_telebot import AsyncTeleBot
 from telebot.types import Message
 
 from bot.menu import menu, Menu
+from bot.messages import start_message
 from bot.parametric_converter.converter_handler import (
     ConverterMenu,
     converter_buttons,
@@ -39,6 +40,7 @@ async def start(message: Message):
     if message.text == "/start":
         await bot.send_message(
             message.chat.id,
+            text=start_message
         )
 
 

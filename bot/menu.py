@@ -19,7 +19,7 @@ async def menu(message: Message, bot):
     await bot.send_message(
         message.chat.id,
         text="""
-        Привет, это бот помошник для Геншина, тут ты сможешь задавать и отслеживать состояния своих сокровищ
+        Основное меню
         """,
         reply_markup=markup,
     )

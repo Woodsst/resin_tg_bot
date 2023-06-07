@@ -3,6 +3,7 @@ import enum
 from telebot import types
 from telebot.types import Message
 
+from bot.menu import Menu
 from bot.resin.resin_messages import (
     message_for_resin_menu,
     message_for_enter_resin_counter,
@@ -22,7 +23,7 @@ async def resin_buttons(message: Message, bot):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn_resin = types.KeyboardButton(ResinMenu.resin.value)
     btn_treasure_resident = types.KeyboardButton(ResinMenu.resin_enter.value)
-    btn_menu = types.KeyboardButton(ResinMenu.buttons.value)
+    btn_menu = types.KeyboardButton(Menu.menu.value)
     markup.add(btn_menu, btn_resin, btn_treasure_resident)
     await bot.send_message(
         message.chat.id,
