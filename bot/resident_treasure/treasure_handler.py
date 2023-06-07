@@ -4,6 +4,7 @@ from telebot import types
 from telebot.types import Message
 
 from bot.bot import Menu
+from bot.resident_treasure.treasure_messages import treasure_menu_message
 from users import User
 
 
@@ -23,7 +24,7 @@ async def treasure_buttons(message: Message, bot):
     markup.add(btn_menu, btn_resin, btn_treasure_resident, btn_update)
     await bot.send_message(
         message.chat.id,
-        text="Выберите необходимые данные".format(message.from_user),
+        text=treasure_menu_message,
         reply_markup=markup,
     )
 
