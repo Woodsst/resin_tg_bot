@@ -15,10 +15,10 @@ class ConverterCounter:
 
     async def counter(self, bot, message: Message):
         """Параметрический преобразователь - отметить когда бъёшь,
-           откат 7 дней. Через 7 дней можно бить. (тоже булево? )
-           оповещение только через неделю с момента нажатия кнопки
-           что ты его побил.
-           ну и можно кнопку посмотреть когдао ткатится
+        откат 7 дней. Через 7 дней можно бить. (тоже булево? )
+        оповещение только через неделю с момента нажатия кнопки
+        что ты его побил.
+        ну и можно кнопку посмотреть когдао ткатится
         """
         while True:
             await sleep(self.converter_check_time_sec)
@@ -39,7 +39,9 @@ class ConverterCounter:
         await self.coro
 
     async def timer_progress(self, bot, message: Message):
-        await bot.send_message(text=timedelta(seconds=self.weak_sec), chat_id=message.chat.id)
+        await bot.send_message(
+            text=timedelta(seconds=self.weak_sec), chat_id=message.chat.id
+        )
 
     async def update(self, bot, message: Message):
         self.weak_sec = self.WEAK

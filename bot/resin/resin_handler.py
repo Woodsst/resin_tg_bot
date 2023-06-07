@@ -3,8 +3,11 @@ import enum
 from telebot import types
 from telebot.types import Message
 
-from bot.resin.resin_messages import message_for_resin_menu, message_for_enter_resin_counter, \
-    incorrect_request_resin_counter
+from bot.resin.resin_messages import (
+    message_for_resin_menu,
+    message_for_enter_resin_counter,
+    incorrect_request_resin_counter,
+)
 from users import User
 
 
@@ -44,4 +47,6 @@ async def resin_buttons_work(message: Message, bot, user: User):
             return
         await user.resin_counter.resin_worker(resin, bot, message)
     if message.text == ResinMenu.resin.value:
-        await bot.send_message(chat_id=message.chat.id, text=user.resin_counter.resin)
+        await bot.send_message(
+            chat_id=message.chat.id, text=user.resin_counter.resin
+        )
