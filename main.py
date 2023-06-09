@@ -1,5 +1,5 @@
 from bot.bot import bot
-from log import logger
+from config.log import logger
 from asyncio import run
 
 if __name__ == "__main__":

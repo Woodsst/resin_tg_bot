@@ -2,7 +2,7 @@ from asyncio import sleep
 
 from telebot.types import Message
 
-from log import logger
+from config.log import logger
 
 
 class ResinCounter:

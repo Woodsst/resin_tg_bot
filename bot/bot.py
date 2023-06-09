@@ -17,13 +17,11 @@ from bot.resident_treasure.treasure_handler import (
     treasure_buttons_work,
 )
 from bot.resin.resin_handler import ResinMenu, resin_buttons, resin_buttons_work
-from log import logger
+from config.log import logger
 from users import users, User
+from config.config import get_settings
 
-
-bot = AsyncTeleBot(
-    getenv("TOKEN", "6290030549:AAF9pOX40vz4bW6NfkZKL3nki8X74YtdpTA")
-)
+bot = AsyncTeleBot(token=get_settings().token)
 
 
 @bot.message_handler(commands=["Меню", "start"])
