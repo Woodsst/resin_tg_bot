@@ -7,19 +7,13 @@ from telebot.types import Message
 class ConverterCounter:
     WEAK = 604800
 
-    def __init__(self):
-        self.converter_check_time_sec = 3600
+    def __init__(self, converter_check_time_sec: int = 3600):
+        self.converter_check_time_sec = converter_check_time_sec
         self.converter_ready = 0
         self.coro = None
         self.weak_sec = self.WEAK
 
     async def counter(self, bot, message: Message):
-        """Параметрический преобразователь - отметить когда бъёшь,
-        откат 7 дней. Через 7 дней можно бить. (тоже булево? )
-        оповещение только через неделю с момента нажатия кнопки
-        что ты его побил.
-        ну и можно кнопку посмотреть когдао ткатится
-        """
         while True:
             await sleep(self.converter_check_time_sec)
             self.weak_sec -= self.converter_check_time_sec

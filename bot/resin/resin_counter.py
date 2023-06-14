@@ -6,11 +6,13 @@ from config.log import logger
 
 
 class ResinCounter:
-    def __init__(self):
+    """Counter for resin.
+    """
+    def __init__(self, counter_update_time_sec: int = 480):
         self.coro = None
         self.checkpoints = [40, 80, 120, 140, 160]
         self.full = self.checkpoints[-1]
-        self.counter_update_time_sec = 480
+        self.counter_update_time_sec = counter_update_time_sec
         self.resin = None
 
     async def resin_counter(self, resin: int):

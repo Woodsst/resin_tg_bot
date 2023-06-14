@@ -4,18 +4,15 @@ from telebot.types import Message
 
 
 class TreasureCounter:
-    def __init__(self):
+    def __init__(self, update_time_sec: int = 3600):
         self.status = False
         self.full = 2400
-        self.update_time_sec = 6000
+        self.update_time_sec = update_time_sec
         self.treasure = 0
         self.treasure_update = 30
         self.coro = None
 
     async def counter(self):
-        """Сокровища обители - накапливаются 30 единиц в час, кап 2400. Когда забираешь они сбрасываются.
-        Вводить числа не надо (булево?) Можно посмотреть сколько сокровищ сейчас накопилось
-        """
         while True:
             await sleep(self.update_time_sec)
             self.treasure += self.treasure_update
